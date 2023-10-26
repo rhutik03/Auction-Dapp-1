@@ -14,9 +14,7 @@ const Message = () => {
   const [output, setOutput] = useState([]);
   const [deployed, setDeployed] = useState(false);
 
-  useEffect(()=>{
-
-  },[deployed])
+  useEffect(()=>{},[deployed]);
 
   const onChangeAddr = (event) => {
     setAddress(event.target.value);
@@ -43,9 +41,12 @@ const Message = () => {
       "bidPrice":value
     })
     .then(res => {
-      setOutput(res.data);
       if(res.data.returnValues!==undefined) setHighestBid(res.data.returnValues.highestBid);
       if(res.data.returnValues!==undefined) setHighestBidder(res.data.returnValues.highestBidder);
+      if(typeof(res.data)==="string") setOutput(res.data)
+      else setOutput("Bid Successful")
+      setAddress("");
+      setValue("");
       console.log(res);
     });
   };
@@ -54,7 +55,10 @@ const Message = () => {
     axios.post(endpoint + "/withdraw",{
       "addr":address
     }).then(res => {
-      setOutput(res.statusText);
+      if(typeof(res.data)==="string") setOutput(res.data)
+      else setOutput("Withdrawal Successful")
+      setAddress("");
+      setValue("");
     });
   };
 
@@ -82,10 +86,13 @@ const Message = () => {
       {"addr":address,
       })
       .then(res => {
-      setOutput(res.statusText);
-      console.log(res);
+        if(typeof(res.data)==="string") setOutput(res.data)
+        else setOutput("Auction Cancelled Please Withdraw your money")
+        console.log(res);
+        setAddress("");
+        setValue("");
     });
-    setDeployed(true);
+  
   };
 
   return (

@@ -8,17 +8,18 @@ const web3Network = "ganache"
 // Here the url is http://ganache:8545
 // this ganache is the name of the container in which ganache-cli is running
 
-// const web3 = new Web3(new Web3.providers.HttpProvider("http://ganache:8545"))
-const web3 = new Web3(new Web3.providers.HttpProvider("http://host.docker.internal:8545/"))
+const web3 = new Web3(new Web3.providers.HttpProvider("http://ganache:8545"))
+// const web3 = new Web3(new Web3.providers.HttpProvider("http://host.docker.internal:8545/"))
 // const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545/"))
 
 // local ganache-cli setup
-// const eventProvider = new Web3.providers.WebsocketProvider(
-  // "ws://ganache:8545"
-// );
 const eventProvider = new Web3.providers.WebsocketProvider(
-  "ws://host.docker.internal:8545"
+  "ws://ganache:8545"
 );
+
+// const eventProvider = new Web3.providers.WebsocketProvider(
+  // "ws://host.docker.internal:8545"
+// );
 // const eventProvider = new Web3.providers.WebsocketProvider(
   // "ws://localhost:8545"
 // );
